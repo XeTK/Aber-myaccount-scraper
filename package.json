@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^0.18.0",
+    "node-notifier": "^4.1.0",
     "request": "^2.51.0",
     "tough-cookie": "^0.12.1"
   }

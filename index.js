@@ -1,5 +1,6 @@
-var request = require('request');
-var cheerio = require('cheerio');
+var request  = require('request');
+var cheerio  = require('cheerio');
+var notifier = require('node-notifier');
 
 console.log('Getting data');
 
@@ -77,7 +78,7 @@ request(
 
 											var data = info.html();
 
-											var regex = /Total\s24\shour\saccounted\straffic:\s(.*)\./g;
+											var regex = /Total\s24\shour\saccounted\straffic:\s(.*)MB\./g;
 
 											var groups = regex.exec(data);
 
@@ -88,7 +89,7 @@ request(
 													"data": groups[1]
 												};
 
-												var table = $('.propertable tr');
+												/*var table = $('.propertable tr');
 
 												table.each(
 													function(index, value) {
@@ -103,7 +104,16 @@ request(
 													}
 												);
 
-												console.log(obj);											
+												console.log(obj);*/	
+
+												var remaining = 12288 - parseInt(obj.data);
+
+												remaining = remaining / 1024;
+
+												notifier.notify({
+												  'title': 'Aber Data Usage.',
+												  'message': remaining.toFixed(2) + 'gb remaining.'
+												});										
 											}
 										}
 									);
